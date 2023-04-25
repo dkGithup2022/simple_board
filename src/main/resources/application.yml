@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+app:
+  dk0124:
+    jwt:
+      secret: helloWorld
+      expirationMs: 9999999
+      cookieName: cookiecookie
