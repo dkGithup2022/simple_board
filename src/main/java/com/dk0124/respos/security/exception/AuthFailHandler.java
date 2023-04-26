@@ -30,7 +30,8 @@ public class AuthFailHandler implements AuthenticationEntryPoint {
         body.put("status", String.valueOf(HttpServletResponse.SC_UNAUTHORIZED));
         body.put("error", "unauthorized request");
         body.put("message", authException.getMessage());
-        body.put("path", request.getPathInfo());
+        if(request.getPathInfo() != null)
+            body.put("path", request.getPathInfo());
 
         objectMapper.writeValue(response.getOutputStream(), body);
     }

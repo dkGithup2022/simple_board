@@ -1,7 +1,6 @@
 package com.dk0124.respos.security.jwt;
 
 
-import com.dk0124.respos.member.Member;
 import com.dk0124.respos.security.userDetails.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +26,19 @@ public class JwtUtils {
     private static String COOKIE_NAME;
 
     @Value("${app.dk0124.jwt.cookieName}")
-    public void setCookieName(String name){ JwtUtils.COOKIE_NAME = name; }
+    public void setCookieName(String name) {
+        JwtUtils.COOKIE_NAME = name;
+    }
+
     @Value("${app.dk0124.jwt.expirationMs}")
-    public void setExpirationMs(Long expirationMs){ JwtUtils.EXPIRATION_MS = expirationMs; }
+    public void setExpirationMs(Long expirationMs) {
+        JwtUtils.EXPIRATION_MS = expirationMs;
+    }
+
     @Value("${app.dk0124.jwt.secret}")
-    public void setJwtKey(String key){ JwtUtils.JWT_KEY = key; }
+    public void setJwtKey(String key) {
+        JwtUtils.JWT_KEY = key;
+    }
 
 
     public static ResponseCookie generateTokenFromUserDetails(UserDetailsImpl userPrincipal) {
@@ -52,7 +59,7 @@ public class JwtUtils {
     }
 
 
-    public static String getUserNameFromJwt(String jwt){
+    public static String getUserNameFromJwt(String jwt) {
         return Jwts.parser().setSigningKey(JWT_KEY).parseClaimsJws(jwt).getBody().getSubject();
     }
 

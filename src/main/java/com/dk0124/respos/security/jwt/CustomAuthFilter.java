@@ -28,9 +28,8 @@ public class CustomAuthFilter extends OncePerRequestFilter {
         try {
             String jwt = JwtUtils.getJwtFromCookies(request);
             if (jwt != null && JwtUtils.validateJwt(jwt)) {
-                String username = JwtUtils.getUserNameFromJwt(jwt);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
+                String email = JwtUtils.getUserNameFromJwt(jwt);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken authentication
                         = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
