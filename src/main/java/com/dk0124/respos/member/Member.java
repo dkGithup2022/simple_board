@@ -1,6 +1,7 @@
 package com.dk0124.respos.member;
 
 
+import com.dk0124.respos.common.BaseEntity;
 import com.dk0124.respos.role.Role;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,7 +20,7 @@ import java.util.UUID;
         @UniqueConstraint(columnNames = "email"),
         @UniqueConstraint(columnNames = "nickname")
 })
-public class Member {
+public class Member extends BaseEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
@@ -30,7 +31,7 @@ public class Member {
 
     @Getter
     @Setter
-    @NotBlank @Size(max=255)
+    @NotBlank    @Size(max=255)
     private String email;
 
     @Getter
@@ -59,6 +60,4 @@ public class Member {
             roles.forEach(e -> this.roles.add(e));
         }
     }
-
-
 }
