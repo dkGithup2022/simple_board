@@ -48,10 +48,10 @@ public class Article extends BaseEntity {
 
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "varchar(255)", nullable = false)
     @Getter
     @Setter
-    private ECategory category;
+    @ManyToOne
+    private Category category;
 
     @Size(min = 0)
     @Getter
@@ -59,10 +59,11 @@ public class Article extends BaseEntity {
     private Long views;
 
     public Article(Member member, String title, String content, ECategory category) {
-        this(null, member, title, content, category, 0L);
+        this(null, member, title, content, new Category(category), 0L);
     }
+
     public Article(Member member, String title, String content, String category) {
-        this(null, member, title, content, ECategory.getCategory(category), 0L);
+        this(null, member, title, content, new Category(ECategory.getCategory(category)), 0L);
     }
 
 
