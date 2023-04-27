@@ -4,7 +4,7 @@
     <groupId>com.dk0124.repos</groupId>
     <artifactId>clean_board</artifactId>
 
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>clean_board Maven Webapp</name>
     <url>http://maven.apache.org</url>
@@ -44,23 +44,16 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-apt</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-jpa</artifactId>
         </dependency>
 
 
@@ -77,8 +70,16 @@
             <scope>test</scope>
         </dependency>
 
-    </dependencies>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <finalName>clean_board</finalName>
@@ -95,10 +96,26 @@
                         <configuration>
                             <outputDirectory>target/generated-sources/java</outputDirectory>
                             <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                            <options>
+                                <querydsl.generatedAnnotationClass>javax.annotation.Generated</querydsl.generatedAnnotationClass>
+                            </options>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>16</source>
+                        <target>16</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+
+
         </plugins>
     </build>
+
 </project>
