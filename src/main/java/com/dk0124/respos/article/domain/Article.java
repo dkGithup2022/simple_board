@@ -53,7 +53,7 @@ public class Article extends BaseEntity {
     @ManyToOne
     private Category category;
 
-    @Size(min = 0)
+
     @Getter
     @Setter
     private Long views;
