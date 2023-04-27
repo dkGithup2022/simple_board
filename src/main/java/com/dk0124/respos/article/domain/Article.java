@@ -9,14 +9,12 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Entity
 @Table(name = "article")
-@Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor

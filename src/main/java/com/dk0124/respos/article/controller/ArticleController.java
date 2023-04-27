@@ -21,7 +21,6 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-
 @RestController
 @RequestMapping("/api/article")
 @Transactional
@@ -48,8 +47,8 @@ public class ArticleController {
     @GetMapping("/get/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<DetailedArticleDto> get(@PathVariable String id) {
-        Article article = articleRepository.findById(UUID.fromString(id)).orElseThrow(
-                () -> new RuntimeException("ArticleApi get: 아티클을 찾을 수 없음 "));
+        Article article = articleRepository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new RuntimeException("ArticleApi get: 아티클을 찾을 수 없음 "));
 
         DetailedArticleDto articleDto = modelMapper.map(article, DetailedArticleDto.class);
         return ResponseEntity.ok().body(articleDto);

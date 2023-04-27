@@ -21,33 +21,29 @@ import java.util.UUID;
         @UniqueConstraint(columnNames = "nickname")
 })
 public class Member extends BaseEntity {
-    @Id
+
+    @Id @Getter
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "member_id", columnDefinition = "BINARY(16)", updatable = false, nullable = false)
-    @Getter
     private UUID id;
 
 
-    @Getter
-    @Setter
+    @Getter @Setter
     @NotBlank    @Size(max=255)
     private String email;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     @NotBlank    @Size(max=255)
     private String nickName;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     @Column(length = 1000)
     @NotBlank
     private String password;
 
 
-    @Getter
-    @Setter
+    @Getter  @Setter
     @ManyToMany
     @JoinTable(name = "member_role", joinColumns = @JoinColumn(name = "role"), inverseJoinColumns = @JoinColumn(name = "member_id"))
     private Set<Role> roles = new HashSet<>();
