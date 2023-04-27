@@ -18,7 +18,6 @@ import java.util.Objects;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@ToString
 public abstract class BaseEntity {
 
     @CreationTimestamp
