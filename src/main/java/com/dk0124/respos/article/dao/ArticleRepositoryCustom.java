@@ -9,6 +9,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.dk0124.respos.article.domain.QArticle.article;
@@ -18,7 +19,17 @@ import static com.dk0124.respos.article.domain.QArticle.article;
 public class ArticleRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    public Slice<DetailedArticleDto> list(Pageable pageable) {
+    /**
+     * 리스트 요청. 기본적으로 date 기준 정렬, date가 null 이라면 현재시각 이후로 넘김 .
+     * @param cursorId
+     * @param pageable
+     * @return
+     */
+    public Slice<DetailedArticleDto> list(LocalDateTime cursorId, Pageable pageable) {
+
+        if (cursorId == null)
+            cursorId = LocalDateTime.now();
+
         List<DetailedArticleDto> articles = queryFactory
                 .select(
                         Projections.constructor(DetailedArticleDto.class,
@@ -30,11 +41,13 @@ public class ArticleRepositoryCustom {
                         )
                 )
                 .from(article)
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize() + 1)
+                .where(article.createdAt.before(cursorId))
+                .orderBy(article.createdAt.desc())
                 .fetch();
+
         return new SliceImpl<>(articles, pageable, sliceHasNext(pageable, articles));
     }
+
 
     private boolean sliceHasNext(Pageable pageable, List contents) {
         return pageable.getPageSize() + 1 == contents.size();

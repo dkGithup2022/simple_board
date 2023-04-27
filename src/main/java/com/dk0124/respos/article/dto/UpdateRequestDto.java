@@ -1,28 +1,19 @@
 package com.dk0124.respos.article.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class CreateArticleRequestDto {
-
-    @NotBlank
-    @Size(max = 255)
+public class UpdateRequestDto {
+    private UUID article_id;
     private String title;
-
-    @NotBlank
     private String content;
-
-    @NotBlank
-    @Size(max = 255)
     private String category;
-
-
 }
