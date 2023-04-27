@@ -68,10 +68,14 @@ public class ArticleService {
     }
 
     private void validateUpdateRequest(Article article, UpdateRequestDto updateRequest) {
-        if (updateRequest.getCategory() != null && !ECategory.contains(updateRequest.getCategory()))
-            throw new RuntimeException("Invalid category");
+        if (article.getId() != updateRequest.getArticle_id())
+            throw new RuntimeException("article id not matched");
 
-        if (updateRequest.getCategory() == null && updateRequest.getContent().isBlank() && updateRequest.getTitle().isBlank())
-            throw new RuntimeException("Empty update Request");
+        if (updateRequest.getTitle().isBlank() && updateRequest.getContent().isBlank()) {
+            if (updateRequest.getCategory().isBlank())
+                throw new RuntimeException("Empty update Request");
+            else if (!ECategory.contains(updateRequest.getCategory()))
+                throw new RuntimeException("Invalid category");
+        }
     }
 }

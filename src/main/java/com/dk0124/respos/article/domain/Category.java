@@ -1,6 +1,7 @@
 package com.dk0124.respos.article.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ public class Category {
 
     @Id
     @Enumerated(EnumType.STRING)
+    @Getter
     private ECategory category;
 
 }

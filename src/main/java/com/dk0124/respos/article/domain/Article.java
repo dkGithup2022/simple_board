@@ -50,7 +50,7 @@ public class Article extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
 
@@ -65,6 +65,4 @@ public class Article extends BaseEntity {
     public Article(Member member, String title, String content, String category) {
         this(null, member, title, content, new Category(ECategory.getCategory(category)), 0L);
     }
-
-
 }

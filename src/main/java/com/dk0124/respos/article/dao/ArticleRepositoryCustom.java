@@ -34,10 +34,13 @@ public class ArticleRepositoryCustom {
                 .select(
                         Projections.constructor(DetailedArticleDto.class,
                                 article.id,
+                                article.member.id,
                                 article.title,
                                 article.content,
                                 article.category,
-                                article.views
+                                article.views,
+                                article.createdAt,
+                                article.updatedAt
                         )
                 )
                 .from(article)

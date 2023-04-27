@@ -1,6 +1,7 @@
 package com.dk0124.respos.article.dto;
 
 import com.dk0124.respos.article.domain.Article;
+import com.dk0124.respos.article.domain.Category;
 import com.dk0124.respos.article.domain.ECategory;
 import com.dk0124.respos.member.Member;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class DetailedArticleDto {
     private UUID id;
 
-    private Member member;
+    private UUID owner;
 
     private String title;
 
@@ -32,8 +33,8 @@ public class DetailedArticleDto {
     private LocalDateTime updatedAt;
 
 
-    public DetailedArticleDto(Article article){
-
+    public DetailedArticleDto(UUID id, UUID owner, String title, String content, Category category, Long views, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this(id, owner, title, content, category.getCategory(), views, createdAt, updatedAt);
     }
 
 }

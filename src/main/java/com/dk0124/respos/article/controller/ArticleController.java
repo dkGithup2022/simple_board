@@ -40,14 +40,14 @@ public class ArticleController {
         Member member = memberRepository.findById(userDetails.getId())
                 .orElseThrow(() -> new RuntimeException("ArticleApi create : 유저를 찾을 수 없음 "));
 
-        articleRepository.save(new Article(member, createRequestDto.getTitle(), createRequestDto.getContent(), createRequestDto.getCategory()));
-        return ResponseEntity.ok().body("created");
+        Article article = articleRepository.save(new Article(member, createRequestDto.getTitle(), createRequestDto.getContent(), createRequestDto.getCategory()));
+        return ResponseEntity.ok().body("created : " + article.getId());
     }
 
 
-    @GetMapping("/get")
+    @GetMapping("/get/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
-    public ResponseEntity<DetailedArticleDto> get(@RequestParam String id) {
+    public ResponseEntity<DetailedArticleDto> get(@PathVariable String id) {
         Article article = articleRepository.findById(UUID.fromString(id)).orElseThrow(
                 () -> new RuntimeException("ArticleApi get: 아티클을 찾을 수 없음 "));
 
@@ -59,6 +59,7 @@ public class ArticleController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<ListArticleDto> listWithTimeStamp(@RequestParam(required = false) Long millis) {
         Slice<DetailedArticleDto> sliced = articleService.listWithMillis(millis, PageRequest.of(0, 100));
+
         Long cursorId = articleService.nextCursorId(sliced, millis);
         return ResponseEntity.ok().body(new ListArticleDto(sliced.getContent(), cursorId));
     }
@@ -68,8 +69,7 @@ public class ArticleController {
     public ResponseEntity<String> update(@RequestBody UpdateRequestDto updateRequest) {
         articleService.ownedByCurrentUser(updateRequest.getArticle_id());
         Article article = articleRepository.findById(updateRequest.getArticle_id()).orElseThrow(
-                () -> new RuntimeException("No matching article")
-        );
+                () -> new RuntimeException("No matching article"));
 
         articleService.update(article, updateRequest);
         return ResponseEntity.ok().body("updated");
@@ -82,6 +82,4 @@ public class ArticleController {
         articleRepository.deleteById(deleteRequestDto.getUUID());
         return ResponseEntity.ok().body("delted");
     }
-
-
 }
