@@ -4,6 +4,7 @@ import com.dk0124.respos.article.domain.Article;
 import com.dk0124.respos.article.domain.Category;
 import com.dk0124.respos.article.domain.ECategory;
 import com.dk0124.respos.member.Member;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -16,25 +17,27 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 public class DetailedArticleDto {
-    private UUID id;
+	private UUID id;
 
-    private UUID owner;
+	private UUID owner;
 
-    private String title;
+	private String title;
 
-    private String content;
+	private String content;
 
-    private ECategory category;
+	private ECategory category;
 
-    private Long views;
+	private Long views;
 
-    private LocalDateTime createdAt;
+	private LocalDateTime createdAt;
 
-    private LocalDateTime updatedAt;
+	private LocalDateTime updatedAt;
 
+	private Long likeCnt;
 
-    public DetailedArticleDto(UUID id, UUID owner, String title, String content, Category category, Long views, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this(id, owner, title, content, category.getCategory(), views, createdAt, updatedAt);
-    }
+	public DetailedArticleDto(UUID id, UUID owner, String title, String content, Category category, Long views,
+		LocalDateTime createdAt, LocalDateTime updatedAt, Long likeCnt) {
+		this(id, owner, title, content, category.getCategory(), views, createdAt, updatedAt, likeCnt);
+	}
 
 }

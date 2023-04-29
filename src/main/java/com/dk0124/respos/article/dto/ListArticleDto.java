@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class ListArticleDto {
-    private List<DetailedArticleDto> list;
-    private Long cursorId;
+	private List<DetailedArticleDto> list;
+	private ArticleListCursor articleListCursor;
 }
